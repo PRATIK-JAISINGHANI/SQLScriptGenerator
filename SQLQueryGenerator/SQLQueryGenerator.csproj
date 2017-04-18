@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultConnectionString.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DefaultConnectionString.Designer.cs">
+      <DependentUpon>DefaultConnectionString.cs</DependentUpon>
+    </Compile>
     <Compile Include="SQLScriptGenerator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +65,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_TrialDB_3DataSet.xsd</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DefaultConnectionString.resx">
+      <DependentUpon>DefaultConnectionString.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SQLScriptGenerator.resx">
       <DependentUpon>SQLScriptGenerator.cs</DependentUpon>
     </EmbeddedResource>

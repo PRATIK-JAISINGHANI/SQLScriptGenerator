@@ -24,6 +24,7 @@ namespace SQLQueryGenerator
         public string INSERT_QUERY_BAKED = string.Empty;
         public string selectedPath = string.Empty;
         public bool defaultConnection;
+        public string defaultConnectionString = string.Empty;
         #endregion
 
         #region Public Methods
@@ -50,7 +51,13 @@ namespace SQLQueryGenerator
                 return;
             }
             else if (comboBox1.SelectedIndex == 0)
+            {
+                Form defaultConnection = new DefaultConnectionString();
+                defaultConnection.ShowDialog();
+                
+
                 connectionString = BuildConnectionString(true);
+            }
             else
                 connectionString = BuildConnectionString(false);
 
