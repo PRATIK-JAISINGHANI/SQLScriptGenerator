@@ -46,7 +46,6 @@
             this.button_GenerateScript = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.usermasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.usermasterTableAdapter = new SQLQueryGenerator._TrialDB_3DataSetTableAdapters.UsermasterTableAdapter();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label_connectionType = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -223,7 +222,6 @@
             // 
             // usermasterTableAdapter
             // 
-            this.usermasterTableAdapter.ClearBeforeFill = true;
             // 
             // dataGridView1
             // 
@@ -369,7 +367,6 @@
         private System.Windows.Forms.Button button_GenerateScript;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.BindingSource usermasterBindingSource;
-        private _TrialDB_3DataSetTableAdapters.UsermasterTableAdapter usermasterTableAdapter;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label_connectionType;
         private System.Windows.Forms.ComboBox comboBox1;

@@ -52,8 +52,8 @@ namespace SQLQueryGenerator
             }
             else if (comboBox1.SelectedIndex == 0)
             {
-                Form defaultConnection = new DefaultConnectionString();
-                defaultConnection.ShowDialog();
+             //   Form defaultConnection = new DefaultConnectionString();
+              //  defaultConnection.ShowDialog();
                 
 
                 connectionString = BuildConnectionString(true);
