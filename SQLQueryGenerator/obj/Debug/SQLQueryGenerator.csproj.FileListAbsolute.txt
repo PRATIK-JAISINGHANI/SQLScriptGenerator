@@ -1,0 +1,9 @@
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe.config
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.pdb
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.csprojResolveAssemblyReference.cache
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.SQLScriptGenerator.resources
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.Properties.Resources.resources
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.csproj.GenerateResource.Cache
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.exe
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.pdb

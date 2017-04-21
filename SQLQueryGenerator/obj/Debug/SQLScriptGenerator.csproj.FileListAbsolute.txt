@@ -1,0 +1,20 @@
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe.config
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.pdb
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.DefaultConnectionString.resources
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.SQLScriptGenerator.resources
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.Properties.Resources.resources
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csproj.GenerateResource.Cache
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.exe
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.pdb
+D:\PersonalProject\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csprojResolveAssemblyReference.cache
+C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLScriptGenerator-3\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe.config
+C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLScriptGenerator-3\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.exe
+C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLScriptGenerator-3\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.pdb
+C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLScriptGenerator-3\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe
+C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLScriptGenerator-3\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.pdb
+C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLScriptGenerator-3\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csprojResolveAssemblyReference.cache
+C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLScriptGenerator-3\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.DefaultConnectionString.resources
+C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLScriptGenerator-3\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.SQLScriptGenerator.resources
+C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLScriptGenerator-3\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.Properties.Resources.resources
+C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLScriptGenerator-3\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csproj.GenerateResource.Cache

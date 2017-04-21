@@ -18,8 +18,9 @@ namespace SQLQueryGenerator
         #region Constants
 
         public DataTable shownData;
-        public static string INSERT_QUERY = "Insert into TABLE_NAME (COLUMN_NAMES) values (VALUES)";
+        public static string INSERT_QUERY = "If Not Exists (Select 1 From TABLE_NAME Where WHERE_CLAUSE) \nBEGIN \nInsert into TABLE_NAME (COLUMN_NAMES) \nvalues (VALUES) \nEND";
         public static List<String> numericDataTypes = new List<string>() { "SYSTEM.INT16", "SYSTEM.INT32", "SYSTEM.INT64", "SYSTEM.BOOLEAN" };
+        public static List<String> dateTimeDataTypes = new List<string>() { "System.DateTime" };
         public string tableName = string.Empty;
         public string INSERT_QUERY_BAKED = string.Empty;
         public string selectedPath = string.Empty;
@@ -27,9 +28,18 @@ namespace SQLQueryGenerator
         public string defaultConnectionString = string.Empty;
         #endregion
 
-        #region Public Methods
+        #region Constructor
 
         public SQLScriptGenerator()
+        {
+            SetDefaults();
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        private void SetDefaults()
         {
             InitializeComponent();
             ConnectionStatus_toolStripStatusLabel1.Text = "Connection Status : Disconnected";
@@ -38,11 +48,7 @@ namespace SQLQueryGenerator
             LoadItemsForConnectionType();
         }
 
-        #endregion
-
-        #region Helper Methods
-
-        private void button1_Click(object sender, EventArgs e)
+        private void button_ConnectServer_Click(object sender, EventArgs e)
         {
             var connectionString = string.Empty;
             if (comboBox1.SelectedItem == null)
@@ -51,27 +57,37 @@ namespace SQLQueryGenerator
                 return;
             }
             else if (comboBox1.SelectedIndex == 0)
-            {
-             //   Form defaultConnection = new DefaultConnectionString();
-              //  defaultConnection.ShowDialog();
-                
-
                 connectionString = BuildConnectionString(true);
-            }
             else
                 connectionString = BuildConnectionString(false);
 
-            SqlConnection connection;
-            connection = new SqlConnection(connectionString);
-            connection.Open();
-            ConnectionStatus_toolStripStatusLabel1.Text = "Connection Status : Connected." + textBox_Server.Text;
+            if (!string.IsNullOrEmpty(connectionString))
+            {
+                try
+                {
+                    SqlConnection connection;
+                    connection = new SqlConnection(connectionString);
+                    connection.Open();
+                    ConnectionStatus_toolStripStatusLabel1.Text = "Connection Status : Connected." + textBox_Server.Text;
+                }
+                catch(Exception ex)
+                { }
+                finally
+                {
+                    MessageBox.Show("Connection was not established.", "Alert", MessageBoxButtons.OK);
+                }
+            }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void ExecuteQuery_button_Click(object sender, EventArgs e)
         {
             INSERT_QUERY_BAKED = string.Empty;
             if (string.IsNullOrEmpty(textBox_SQLQueryToExecute.Text))
-                throw new Exception("Please insert the query to execute.");
+            {
+                //throw new Exception("Please insert the query to execute.");
+                MessageBox.Show("Please insert the query to execute.", "Error Found", MessageBoxButtons.OK);
+                return;
+            }
             //
             var connectionString = BuildConnectionString(defaultConnection);
             //
@@ -103,16 +119,18 @@ namespace SQLQueryGenerator
                         string query = string.Empty;
                         //
                         if (sqlQueryToExecute.ToUpper().Contains("SELECT * FROM"))
+                        {
                             foreach (var item in columnsList)
-                                    if (string.IsNullOrEmpty(query))
-                                        query = item;
-                                    else
-                                        query = query + ", " + item;
+                                if (string.IsNullOrEmpty(query))
+                                    query = item;
+                                else
+                                    query = query + "," + item;
 
-                        sqlQueryToExecute = sqlQueryToExecute.Replace("*", query);
+                            sqlQueryToExecute = sqlQueryToExecute.Replace("*", query);
+                        }
 
                         dataReader.Close();
-
+                        //
                         using (SqlCommand commandFinal = new SqlCommand(sqlQueryToExecute, connection))
                         {
                             commandFinal.CommandType = CommandType.Text;
@@ -127,9 +145,9 @@ namespace SQLQueryGenerator
                                 }
                                 catch (Exception ex)
                                 {
-                                    throw new DataException("Check this Error : ", ex);
+                                    MessageBox.Show(Convert.ToString(ex), "Error Found", MessageBoxButtons.OK);
+                                    return;
                                 }
-
                             }
                         }
                     }
@@ -140,49 +158,44 @@ namespace SQLQueryGenerator
 
         private void button_DisconnectServer_Click(object sender, EventArgs e)
         {
-            //connection.Close();
             textBox_SQLQueryToExecute.Text = string.Empty;
             dataGridView1.DataSource = new DataTable();
-
             ConnectionStatus_toolStripStatusLabel1.Text = "Connection Status : Disconnected.";
-FileStatus_toolStripStatusLabel2.Text = "|  File Status : Pending .....!";
+            FileStatus_toolStripStatusLabel2.Text = "|  File Status : Pending .....!";
         }
 
         private string BuildConnectionString(bool IsDefault)
         {
             defaultConnection = IsDefault;
-            try
+            if (defaultConnection)
+                return string.Format("Server=tcp:exactgst-dev-cin-sqlsrv.database.windows.net,1433;Initial Catalog=exactgst-dev-cin-cfgdb;Persist Security Info=False;User ID=excellon;Password=Exce110n!@#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            else
             {
-                if (defaultConnection)
-                    return string.Format("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TrialDB-3;Integrated Security=True");
-                else
+                if (string.IsNullOrEmpty(textBox_Server.Text) ||
+                string.IsNullOrEmpty(textBox_Username.Text) ||
+                string.IsNullOrEmpty(textBox_Password.Text) ||
+                string.IsNullOrEmpty(textBox_DataBaseName.Text))
                 {
-                    if (string.IsNullOrEmpty(textBox_Server.Text) ||
-                    string.IsNullOrEmpty(textBox_Username.Text) ||
-                    string.IsNullOrEmpty(textBox_Password.Text) ||
-                    string.IsNullOrEmpty(textBox_DataBaseName.Text))
-                        throw new Exception("Please insert the Server / UserName & Password to connect.");
+                    //throw new Exception("Please insert the Server / UserName & Password to connect.");
+                    MessageBox.Show("Please insert the Server / UserName & Password to connect.");
+                    return string.Empty;
+                }
 
-                    var ServerName = textBox_Server.Text;
-                    var DatabaseName = textBox_DataBaseName.Text;
-                    var UserName = textBox_Username.Text;
-                    var Password = textBox_Password.Text;
-                        //
+                var ServerName = textBox_Server.Text;
+                var DatabaseName = textBox_DataBaseName.Text;
+                var UserName = textBox_Username.Text;
+                var Password = textBox_Password.Text;
+                    //
 
-                    return "Data Source=" + ServerName +
-                           ";Initial Catalog=" + DatabaseName +
-                           ";Integrated Security=False;User ID=" + UserName +
-                           ";Password=" + Password +
-                           ";Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-                    }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Connection Was not Established", ex);
+                return "Data Source=" + ServerName +
+                       ";Initial Catalog=" + DatabaseName +
+                       ";Integrated Security=False;User ID=" + UserName +
+                       ";Password=" + Password +
+                       ";Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void GenerateScript_button_Click(object sender, EventArgs e)
         {
             if (shownData.Rows.Count == 0)
                 throw new Exception("No data present in grid to generate scripts");
@@ -211,7 +224,7 @@ FileStatus_toolStripStatusLabel2.Text = "|  File Status : Pending .....!";
                 if (string.IsNullOrEmpty(columnNames))
                     columnNames = column.ColumnName;
                 else
-                    columnNames = columnNames + ", " + column.ColumnName;
+                    columnNames = columnNames + "," + column.ColumnName;
 
             INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("TABLE_NAME", tableName);
             INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("COLUMN_NAMES", columnNames);
@@ -229,30 +242,46 @@ FileStatus_toolStripStatusLabel2.Text = "|  File Status : Pending .....!";
                         if (numericDataTypes.Contains(columnWithDataTypes[item.ToString()].ToUpper()))
                             columnValues = dr[item.ToString()].ToString();
                         else
-                            columnValues = string.Concat("'", dr[item.ToString()].ToString(), "'");
+                        {
+                            if (dateTimeDataTypes.Contains(columnWithDataTypes[item.ToString()]) && !string.IsNullOrEmpty(dr[item.ToString()].ToString()))
+                                columnValues = string.Concat("'", Convert.ToDateTime(dr[item.ToString()]).ToString("yyyy-MM-dd HH:mm:ss"), "'");
+                            else
+                                columnValues = string.Concat("'", dr[item.ToString()].ToString(), "'");
+                        }
                     }
                     else
                     {
                         if (numericDataTypes.Contains(columnWithDataTypes[item.ToString()].ToUpper()))
-                            columnValues = columnValues + ", " + dr[item.ToString()].ToString();
+                            columnValues = columnValues + "," + dr[item.ToString()].ToString();
                         else
-                            columnValues = columnValues + ", " + string.Concat("'", dr[item.ToString()].ToString(), "'");
+                        {
+                            if (dateTimeDataTypes.Contains(columnWithDataTypes[item.ToString()]) && !string.IsNullOrEmpty(dr[item.ToString()].ToString()))
+                                columnValues = columnValues + "," + string.Concat("'", Convert.ToDateTime(dr[item.ToString()]).ToString("yyyy-MM-dd HH:mm:ss"), "'");
+                            else
+                                columnValues = columnValues + "," + string.Concat("'", dr[item.ToString()].ToString(), "'");
+                        }
                     }
                 }
 
-                if (columnValues.Contains("True,"))
-                    columnValues = columnValues.Replace("True,", "1,");
+                if (columnValues.Contains("True"))
+                    columnValues = columnValues.Replace("True", "1");
 
-                if (columnValues.ToUpper().Contains("False,"))
-                    columnValues = columnValues.Replace("False,", "0,");
+                if (columnValues.Contains("False"))
+                    columnValues = columnValues.Replace("False", "0");
 
-                if (columnValues.ToUpper().Contains("''"))
+                if (columnValues.Contains("''"))
                     columnValues = columnValues.Replace("''", "NULL");
+
+                if (columnValues.ToUpper().Contains(",,"))
+                    columnValues = columnValues.Replace(",,", ",NULL,");
 
                 if (INSERT_QUERY_RAW.Contains("VALUES"))
                     INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("VALUES", columnValues);
                 else
                     INSERT_QUERY_RAW = INSERT_QUERY_RAW + "\n"+"\n" + INSERT_QUERY_BAKED.Replace("VALUES", columnValues);
+
+                if (INSERT_QUERY_RAW.Contains("WHERE_CLAUSE"))
+                    INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("WHERE_CLAUSE", GenerateWhereClause(columnWithDataTypes,columnNames, columnValues));
             }
 
             using (FileStream fs = File.Create(string.Concat(selectedPath,"\\",tableName,"-",DateTime.Now.ToString("dd-MM-yyyy"),".txt")))
@@ -260,7 +289,6 @@ FileStatus_toolStripStatusLabel2.Text = "|  File Status : Pending .....!";
                 byte[] text = new UTF8Encoding(true).GetBytes(INSERT_QUERY_RAW);
                 fs.Write(text, 0, text.Length);
             }
-            //MessageBox.Show(INSERT_QUERY_RAW.ToString());
             MessageBox.Show("Your file has been saved at : " + selectedPath + "\n\n File Name : " + string.Concat(tableName, "-", DateTime.Now.ToString("dd-MM-yyyy"), ".txt"), "File Saved.", MessageBoxButtons.OK);
         }
 
@@ -293,11 +321,6 @@ FileStatus_toolStripStatusLabel2.Text = "|  File Status : Pending .....!";
             textBox_DataBaseName.Enabled = true;
         }
 
-        private string GetSQLQueryToExecute(SqlDataReader dataReader, string sqlQuery)
-        {
-            return sqlQuery;
-        }
-
         private void SetTableName(string sqlQuery)
         {
             sqlQuery = sqlQuery.Remove(0, sqlQuery.ToUpper().IndexOf("FROM") - 1);
@@ -312,13 +335,50 @@ FileStatus_toolStripStatusLabel2.Text = "|  File Status : Pending .....!";
             tableName = sqlQuery;
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void browse_button_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.ShowDialog();
             FileStatus_toolStripStatusLabel2.Text = "|  File will be saved at : "+ fbd.SelectedPath;
             selectedPath = fbd.SelectedPath;
         }
+
+        private string GenerateWhereClause(Dictionary<string,string> columnsWithDataTypes, string columnNames, string columnValues)
+        {
+            var columnNamesList = columnNames.Split(',').ToList<string>();
+            var columnValuesList = columnValues.Split(',').ToList<string>();
+            var whereClause = string.Empty;
+            if(columnNamesList.Count == columnValuesList.Count)
+            {
+                
+                for(int i = 0; i < columnValuesList.Count; i++)
+                {
+                    if (string.IsNullOrEmpty(whereClause))
+                    {
+                        if (!dateTimeDataTypes.Contains(columnsWithDataTypes[columnNamesList[i]]))
+                        {
+                            if (columnValuesList[i] != "NULL")
+                                whereClause = columnNamesList[i] + " = " + columnValuesList[i];
+                            else
+                                whereClause = columnNamesList[i] + " IS " + columnValuesList[i];
+                        }
+                    }
+                    else
+                    {
+                        if (!dateTimeDataTypes.Contains(columnsWithDataTypes[columnNamesList[i]]))
+                        {
+                            if(columnValuesList[i] != "NULL")
+                                whereClause = whereClause + " And " + columnNamesList[i] + " = " + columnValuesList[i];
+                            else
+                                whereClause = whereClause + " And " + columnNamesList[i] + " IS " + columnValuesList[i];
+                        }
+                    }
+                }
+            }
+            return whereClause;
+        }
+
         #endregion
+
     }
 }
