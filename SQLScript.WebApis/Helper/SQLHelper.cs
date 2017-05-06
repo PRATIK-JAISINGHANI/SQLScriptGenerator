@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Configuration;
 
 namespace SQLScript.WebApis.Helper
 {
@@ -11,8 +12,8 @@ namespace SQLScript.WebApis.Helper
     {
         #region Constants
 
-        public string DEFAULT_CONNECTION_STRING = string.Format("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TrialDB-3;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-        public string INSERT_QUERY = "If Not Exists (Select 1 From TABLE_NAME Where WHERE_CLAUSE) BEGIN Insert into TABLE_NAME (COLUMN_NAMES) values (VALUES) END #";
+        public string DEFAULT_CONNECTION_STRING = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString.ToString();//string.Format("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TrialDB-3;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        public string INSERT_QUERY = "If Not Exists (Select 1 From TABLE_NAME Where WHERE_CLAUSE) BEGIN Insert into TABLE_NAME (COLUMN_NAMES) values (VALUES) END |";
         public string INSERT_QUERY_BAKED = string.Empty;
         public DataTable shownData;
         public string tableName = string.Empty;
@@ -173,7 +174,7 @@ namespace SQLScript.WebApis.Helper
                 if (INSERT_QUERY_RAW.Contains("VALUES"))
                     INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("VALUES", columnValues);
                 else
-                    INSERT_QUERY_RAW = INSERT_QUERY_RAW + "#" + INSERT_QUERY_BAKED.Replace("VALUES", columnValues);
+                    INSERT_QUERY_RAW = INSERT_QUERY_RAW  + INSERT_QUERY_BAKED.Replace("VALUES", columnValues);
 
                 if (INSERT_QUERY_RAW.Contains("WHERE_CLAUSE"))
                     INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("WHERE_CLAUSE", GenerateWhereClause(columnWithDataTypes, columnNames, columnValues));
@@ -232,7 +233,7 @@ namespace SQLScript.WebApis.Helper
 
         private Array ConvertToArray(string generatedScripts)
         {
-            return generatedScripts.Split('#').ToArray<string>();
+            return generatedScripts.Split('|').ToArray<string>();
         }
         #endregion 
     }

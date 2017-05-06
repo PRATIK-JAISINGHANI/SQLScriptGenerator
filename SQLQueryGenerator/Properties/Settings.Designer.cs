@@ -28,9 +28,9 @@ namespace SQLQueryGenerator.Properties {
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TrialDB-3;Integrated Security=" +
             "True")]
-        public string TrialDB_3ConnectionString {
+        public string DefaultConnectionString {
             get {
-                return ((string)(this["TrialDB_3ConnectionString"]));
+                return ((string)(this["DefaultConnectionString"]));
             }
         }
     }

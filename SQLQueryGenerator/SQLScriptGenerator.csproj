@@ -48,12 +48,6 @@
   <ItemGroup>
     <Compile Include="DataContracts\SQLScriptRequest.cs" />
     <Compile Include="DataContracts\SQLScriptResponse.cs" />
-    <Compile Include="DefaultConnectionString.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DefaultConnectionString.Designer.cs">
-      <DependentUpon>DefaultConnectionString.cs</DependentUpon>
-    </Compile>
     <Compile Include="SQLScriptGenerator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,9 +56,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DefaultConnectionString.resx">
-      <DependentUpon>DefaultConnectionString.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SQLScriptGenerator.resx">
       <DependentUpon>SQLScriptGenerator.cs</DependentUpon>
     </EmbeddedResource>

@@ -54,6 +54,7 @@ namespace SQLScript.WebApis.Controllers
             var result = JsonConvert.SerializeObject(response);
             return new HttpResponseMessage() { Content = new StringContent(result, System.Text.Encoding.UTF8, "application/json") };
         }
+
         #endregion
     }
 }

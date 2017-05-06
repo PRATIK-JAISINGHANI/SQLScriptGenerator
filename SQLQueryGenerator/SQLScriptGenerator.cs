@@ -19,7 +19,7 @@ namespace SQLQueryGenerator
 
         public DataTable shownData;
         public static string INSERT_QUERY = "If Not Exists (Select 1 From TABLE_NAME Where WHERE_CLAUSE) \nBEGIN \nInsert into TABLE_NAME (COLUMN_NAMES) \nvalues (VALUES) \nEND";
-        public static List<String> numericDataTypes = new List<string>() { "SYSTEM.INT16", "SYSTEM.INT32", "SYSTEM.INT64", "SYSTEM.BOOLEAN" };
+        public static List<String> numericDataTypes = new List<string>() { "SYSTEM.INT16", "SYSTEM.INT32", "SYSTEM.INT64" };
         public static List<String> dateTimeDataTypes = new List<string>() { "System.DateTime" };
         public string tableName = string.Empty;
         public string INSERT_QUERY_BAKED = string.Empty;
@@ -27,6 +27,7 @@ namespace SQLQueryGenerator
         public bool defaultConnection;
         public string defaultConnectionString = string.Empty;
         #endregion
+
 
         #region Constructor
 
@@ -57,7 +58,14 @@ namespace SQLQueryGenerator
                 return;
             }
             else if (comboBox1.SelectedIndex == 0)
+            {
+                if (string.IsNullOrEmpty(defaultConnection_textBox.Text))
+                {
+                    MessageBox.Show("Please provide default connection string to establish a connection.", "Alert", MessageBoxButtons.OK);
+                    return;
+                }
                 connectionString = BuildConnectionString(true);
+            }
             else
                 connectionString = BuildConnectionString(false);
 
@@ -71,8 +79,6 @@ namespace SQLQueryGenerator
                     ConnectionStatus_toolStripStatusLabel1.Text = "Connection Status : Connected." + textBox_Server.Text;
                 }
                 catch(Exception ex)
-                { }
-                finally
                 {
                     MessageBox.Show("Connection was not established.", "Alert", MessageBoxButtons.OK);
                 }
@@ -165,10 +171,10 @@ namespace SQLQueryGenerator
         }
 
         private string BuildConnectionString(bool IsDefault)
-        {
+            {
             defaultConnection = IsDefault;
             if (defaultConnection)
-                return string.Format("Server=tcp:exactgst-dev-cin-sqlsrv.database.windows.net,1433;Initial Catalog=exactgst-dev-cin-cfgdb;Persist Security Info=False;User ID=excellon;Password=Exce110n!@#;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                return defaultConnection_textBox.Text;//string.Format("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TrialDB-3;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             else
             {
                 if (string.IsNullOrEmpty(textBox_Server.Text) ||
@@ -185,7 +191,7 @@ namespace SQLQueryGenerator
                 var DatabaseName = textBox_DataBaseName.Text;
                 var UserName = textBox_Username.Text;
                 var Password = textBox_Password.Text;
-                    //
+                //
 
                 return "Data Source=" + ServerName +
                        ";Initial Catalog=" + DatabaseName +
@@ -199,18 +205,19 @@ namespace SQLQueryGenerator
         {
             if (shownData.Rows.Count == 0)
                 throw new Exception("No data present in grid to generate scripts");
-
+            //
             if (string.IsNullOrEmpty(selectedPath))
             {
                 MessageBox.Show("Please select a path to save file.", "Alert", MessageBoxButtons.OK);
                 return;
             }
-
             //
             var INSERT_QUERY_RAW = INSERT_QUERY;
-            List<string> columns = new List<string>();
-            Dictionary<string, string> columnWithDataTypes = new Dictionary<string, string>();
+            var columns = new List<string>();
+            
+            var columnWithDataTypes = new Dictionary<string, string>();
             //
+            // NOTE : Here All the columns are added in 2 list i.e columns and columnWithDataTypes.
             foreach (DataColumn column in shownData.Columns)
             {
                 columns.Add(column.ColumnName);
@@ -226,6 +233,7 @@ namespace SQLQueryGenerator
                 else
                     columnNames = columnNames + "," + column.ColumnName;
 
+
             INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("TABLE_NAME", tableName);
             INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("COLUMN_NAMES", columnNames);
 
@@ -235,39 +243,76 @@ namespace SQLQueryGenerator
             foreach (DataRow dr in shownData.Rows)
             {
                 columnValues = string.Empty;
+                var columnValuesList = new List<string>();
                 foreach (var item in columns)
                 {
                     if (string.IsNullOrEmpty(columnValues))
                     {
                         if (numericDataTypes.Contains(columnWithDataTypes[item.ToString()].ToUpper()))
+                        {
                             columnValues = dr[item.ToString()].ToString();
+                            columnValuesList.Add(dr[item.ToString()].ToString());
+                        }
                         else
                         {
                             if (dateTimeDataTypes.Contains(columnWithDataTypes[item.ToString()]) && !string.IsNullOrEmpty(dr[item.ToString()].ToString()))
+                            {
                                 columnValues = string.Concat("'", Convert.ToDateTime(dr[item.ToString()]).ToString("yyyy-MM-dd HH:mm:ss"), "'");
+                                columnValuesList.Add(string.Concat("'", Convert.ToDateTime(dr[item.ToString()]).ToString("yyyy-MM-dd HH:mm:ss"), "'"));
+                            }
                             else
+                            {
                                 columnValues = string.Concat("'", dr[item.ToString()].ToString(), "'");
+                                columnValuesList.Add(string.Concat("'", dr[item.ToString()].ToString(), "'"));
+                            }
                         }
                     }
                     else
                     {
                         if (numericDataTypes.Contains(columnWithDataTypes[item.ToString()].ToUpper()))
+                        {
                             columnValues = columnValues + "," + dr[item.ToString()].ToString();
+                            columnValuesList.Add(dr[item.ToString()].ToString());
+                        }
                         else
                         {
                             if (dateTimeDataTypes.Contains(columnWithDataTypes[item.ToString()]) && !string.IsNullOrEmpty(dr[item.ToString()].ToString()))
+                            {
                                 columnValues = columnValues + "," + string.Concat("'", Convert.ToDateTime(dr[item.ToString()]).ToString("yyyy-MM-dd HH:mm:ss"), "'");
+                                columnValuesList.Add(string.Concat("'", Convert.ToDateTime(dr[item.ToString()]).ToString("yyyy-MM-dd HH:mm:ss"), "'"));
+                            }
                             else
+                            {
                                 columnValues = columnValues + "," + string.Concat("'", dr[item.ToString()].ToString(), "'");
+                                columnValuesList.Add(string.Concat("'", dr[item.ToString()].ToString(), "'"));
+                            }
                         }
                     }
                 }
 
-                if (columnValues.Contains("True"))
-                    columnValues = columnValues.Replace("True", "1");
+                if (columnValues.Contains("'True'"))
+                    columnValues = columnValues.Replace("'True'", "1");
 
-                if (columnValues.Contains("False"))
-                    columnValues = columnValues.Replace("False", "0");
+                if (columnValues.Contains("'False'"))
+                    columnValues = columnValues.Replace("'False'", "0");
+
+                var t = new List<int>();
+                var f = new List<int>();
+
+                foreach (var item in columnValuesList)
+                {
+                    if (item.ToString() == "'True'")
+                        t.Add(columnValuesList.IndexOf(item.ToString()));
+                    if (item.ToString() == "'False'")
+                        f.Add(columnValuesList.IndexOf(item.ToString()));
+                }
+
+                foreach (var item in t)
+                    columnValuesList[item] = "1";
+
+
+                foreach (var item in f)
+                    columnValuesList[item] = "0";
 
                 if (columnValues.Contains("''"))
                     columnValues = columnValues.Replace("''", "NULL");
@@ -281,7 +326,7 @@ namespace SQLQueryGenerator
                     INSERT_QUERY_RAW = INSERT_QUERY_RAW + "\n"+"\n" + INSERT_QUERY_BAKED.Replace("VALUES", columnValues);
 
                 if (INSERT_QUERY_RAW.Contains("WHERE_CLAUSE"))
-                    INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("WHERE_CLAUSE", GenerateWhereClause(columnWithDataTypes,columnNames, columnValues));
+                    INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("WHERE_CLAUSE", GenerateWhereClause(columnWithDataTypes,columns, columnValuesList));
             }
 
             using (FileStream fs = File.Create(string.Concat(selectedPath,"\\",tableName,"-",DateTime.Now.ToString("dd-MM-yyyy"),".txt")))
@@ -292,17 +337,34 @@ namespace SQLQueryGenerator
             MessageBox.Show("Your file has been saved at : " + selectedPath + "\n\n File Name : " + string.Concat(tableName, "-", DateTime.Now.ToString("dd-MM-yyyy"), ".txt"), "File Saved.", MessageBoxButtons.OK);
         }
 
+        private void replace(string s)
+        {
+            if (s == "'True'")
+                s = "1";
+            if (s == "'False'")
+                s = "0";
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex == 0)
+            {
                 DisableControls();
+                defaultConnection_textBox.Enabled = true;
+            }
+
             else
+            {
                 EnableControls();
+                defaultConnection_textBox.Enabled = false;
+            }
         }
 
         private void LoadItemsForConnectionType()
         {
-            comboBox1.Items.Add(new Dictionary<Int32, string>() { {1,"Windows Authentication" }, { 2, "SQL Connection"} });
+            //var connectionTypes = new Dictionary<Int32, string>() { { 1, "Windows Authentication" }, { 2, "SQL Connection" } };
+            var connectionTypes = new List<string> { {"Windows Authentication" }, { "SQL Connection" } };
+            comboBox1.Items.Add(connectionTypes);
         }
 
         private void DisableControls()
@@ -311,6 +373,7 @@ namespace SQLQueryGenerator
             textBox_Username.Enabled = false;
             textBox_Password.Enabled = false;
             textBox_DataBaseName.Enabled = false;
+            defaultConnection_textBox.Enabled = false;
         }
 
         private void EnableControls()
@@ -343,10 +406,10 @@ namespace SQLQueryGenerator
             selectedPath = fbd.SelectedPath;
         }
 
-        private string GenerateWhereClause(Dictionary<string,string> columnsWithDataTypes, string columnNames, string columnValues)
+        private string GenerateWhereClause(Dictionary<string,string> columnsWithDataTypes, List<string> columnNamesList, List<string> columnValuesList)
         {
-            var columnNamesList = columnNames.Split(',').ToList<string>();
-            var columnValuesList = columnValues.Split(',').ToList<string>();
+            //var columnNamesList = columnNames.Split(',').ToList<string>();
+            //var columnValuesList = columnValues.Split(',').ToList<string>();
             var whereClause = string.Empty;
             if(columnNamesList.Count == columnValuesList.Count)
             {
