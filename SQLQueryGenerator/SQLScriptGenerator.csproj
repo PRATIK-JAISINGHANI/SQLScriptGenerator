@@ -48,6 +48,12 @@
   <ItemGroup>
     <Compile Include="DataContracts\SQLScriptRequest.cs" />
     <Compile Include="DataContracts\SQLScriptResponse.cs" />
+    <Compile Include="DatabaseUtility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatabaseUtility.Designer.cs">
+      <DependentUpon>DatabaseUtility.cs</DependentUpon>
+    </Compile>
     <Compile Include="SQLScriptGenerator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -56,6 +62,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DatabaseUtility.resx">
+      <DependentUpon>DatabaseUtility.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SQLScriptGenerator.resx">
       <DependentUpon>SQLScriptGenerator.cs</DependentUpon>
     </EmbeddedResource>

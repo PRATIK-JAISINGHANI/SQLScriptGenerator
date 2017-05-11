@@ -27,12 +27,3 @@ C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLQueryGenerator-2\SQLQue
 C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLQueryGenerator-2\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.SQLScriptGenerator.resources
 C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLQueryGenerator-2\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.Properties.Resources.resources
 C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLQueryGenerator-2\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csproj.GenerateResource.Cache
-D:\PersonalProject\SQLScriptGenerator-10052017\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe.config
-D:\PersonalProject\SQLScriptGenerator-10052017\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.exe
-D:\PersonalProject\SQLScriptGenerator-10052017\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.pdb
-D:\PersonalProject\SQLScriptGenerator-10052017\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe
-D:\PersonalProject\SQLScriptGenerator-10052017\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.pdb
-D:\PersonalProject\SQLScriptGenerator-10052017\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csprojResolveAssemblyReference.cache
-D:\PersonalProject\SQLScriptGenerator-10052017\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.SQLScriptGenerator.resources
-D:\PersonalProject\SQLScriptGenerator-10052017\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.Properties.Resources.resources
-D:\PersonalProject\SQLScriptGenerator-10052017\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csproj.GenerateResource.Cache
