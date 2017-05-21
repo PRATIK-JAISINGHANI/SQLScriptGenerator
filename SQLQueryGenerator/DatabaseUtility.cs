@@ -21,15 +21,27 @@ namespace SQLQueryGenerator
         private void scriptGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SQLScriptGenerator scriptGenerator = new SQLScriptGenerator();
+            scriptGenerator.WindowState = FormWindowState.Minimized;
             scriptGenerator.MdiParent = this;
             scriptGenerator.Show();
+            scriptGenerator.WindowState = FormWindowState.Maximized;
         }
 
-        private void SetDefault()
+
+        //private void SetDefault()
+        //{
+        //    SQLScriptGenerator scriptGenerator = new SQLScriptGenerator();
+        //    scriptGenerator.MdiParent = this;
+        //    scriptGenerator.Show();
+        //}
+
+        private void databaseScannerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SQLScriptGenerator scriptGenerator = new SQLScriptGenerator();
-            scriptGenerator.MdiParent = this;
-            scriptGenerator.Show();
+            DatabaseScanner databaseScanner = new DatabaseScanner();
+            databaseScanner.WindowState = FormWindowState.Minimized;
+            databaseScanner.MdiParent = this;
+            databaseScanner.Show();
+            databaseScanner.WindowState = FormWindowState.Maximized;
         }
     }
 }

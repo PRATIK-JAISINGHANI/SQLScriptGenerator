@@ -57,6 +57,7 @@
             this.defaultConnection_label = new System.Windows.Forms.Label();
             this.defaultConnection_textBox = new System.Windows.Forms.TextBox();
             this.usermasterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.DataFetched_label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.usermasterBindingSource)).BeginInit();
@@ -65,7 +66,7 @@
             // textBox_Server
             // 
             this.textBox_Server.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_Server.Location = new System.Drawing.Point(170, 90);
+            this.textBox_Server.Location = new System.Drawing.Point(177, 107);
             this.textBox_Server.Name = "textBox_Server";
             this.textBox_Server.Size = new System.Drawing.Size(484, 22);
             this.textBox_Server.TabIndex = 2;
@@ -74,7 +75,7 @@
             // 
             this.Server.AutoSize = true;
             this.Server.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Server.Location = new System.Drawing.Point(13, 91);
+            this.Server.Location = new System.Drawing.Point(20, 108);
             this.Server.Name = "Server";
             this.Server.Size = new System.Drawing.Size(48, 18);
             this.Server.TabIndex = 1;
@@ -84,7 +85,7 @@
             // 
             this.Username.AutoSize = true;
             this.Username.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Username.Location = new System.Drawing.Point(13, 124);
+            this.Username.Location = new System.Drawing.Point(20, 141);
             this.Username.Name = "Username";
             this.Username.Size = new System.Drawing.Size(69, 18);
             this.Username.TabIndex = 2;
@@ -94,7 +95,7 @@
             // 
             this.Password.AutoSize = true;
             this.Password.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Password.Location = new System.Drawing.Point(13, 157);
+            this.Password.Location = new System.Drawing.Point(20, 174);
             this.Password.Name = "Password";
             this.Password.Size = new System.Drawing.Size(65, 18);
             this.Password.TabIndex = 3;
@@ -103,7 +104,7 @@
             // textBox_Username
             // 
             this.textBox_Username.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_Username.Location = new System.Drawing.Point(170, 123);
+            this.textBox_Username.Location = new System.Drawing.Point(177, 140);
             this.textBox_Username.Name = "textBox_Username";
             this.textBox_Username.Size = new System.Drawing.Size(240, 22);
             this.textBox_Username.TabIndex = 3;
@@ -111,7 +112,7 @@
             // textBox_Password
             // 
             this.textBox_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_Password.Location = new System.Drawing.Point(170, 156);
+            this.textBox_Password.Location = new System.Drawing.Point(177, 173);
             this.textBox_Password.Name = "textBox_Password";
             this.textBox_Password.PasswordChar = '*';
             this.textBox_Password.Size = new System.Drawing.Size(240, 22);
@@ -120,7 +121,7 @@
             // Status
             // 
             this.Status.AutoSize = true;
-            this.Status.Location = new System.Drawing.Point(455, 82);
+            this.Status.Location = new System.Drawing.Point(462, 99);
             this.Status.Name = "Status";
             this.Status.Size = new System.Drawing.Size(0, 13);
             this.Status.TabIndex = 6;
@@ -130,7 +131,7 @@
             this.button_ConnectServer.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button_ConnectServer.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_ConnectServer.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button_ConnectServer.Location = new System.Drawing.Point(502, 171);
+            this.button_ConnectServer.Location = new System.Drawing.Point(509, 188);
             this.button_ConnectServer.Name = "button_ConnectServer";
             this.button_ConnectServer.Size = new System.Drawing.Size(230, 35);
             this.button_ConnectServer.TabIndex = 6;
@@ -142,7 +143,7 @@
             // 
             this.DataBases.AutoSize = true;
             this.DataBases.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DataBases.Location = new System.Drawing.Point(13, 187);
+            this.DataBases.Location = new System.Drawing.Point(20, 204);
             this.DataBases.Name = "DataBases";
             this.DataBases.Size = new System.Drawing.Size(101, 18);
             this.DataBases.TabIndex = 9;
@@ -151,7 +152,7 @@
             // textBox_DataBaseName
             // 
             this.textBox_DataBaseName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_DataBaseName.Location = new System.Drawing.Point(170, 186);
+            this.textBox_DataBaseName.Location = new System.Drawing.Point(177, 203);
             this.textBox_DataBaseName.Name = "textBox_DataBaseName";
             this.textBox_DataBaseName.Size = new System.Drawing.Size(240, 22);
             this.textBox_DataBaseName.TabIndex = 5;
@@ -160,7 +161,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 253);
+            this.label1.Location = new System.Drawing.Point(20, 270);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(141, 18);
             this.label1.TabIndex = 11;
@@ -169,10 +170,10 @@
             // textBox_SQLQueryToExecute
             // 
             this.textBox_SQLQueryToExecute.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_SQLQueryToExecute.Location = new System.Drawing.Point(170, 238);
+            this.textBox_SQLQueryToExecute.Location = new System.Drawing.Point(177, 255);
             this.textBox_SQLQueryToExecute.Multiline = true;
             this.textBox_SQLQueryToExecute.Name = "textBox_SQLQueryToExecute";
-            this.textBox_SQLQueryToExecute.Size = new System.Drawing.Size(730, 129);
+            this.textBox_SQLQueryToExecute.Size = new System.Drawing.Size(987, 89);
             this.textBox_SQLQueryToExecute.TabIndex = 7;
             // 
             // ExecuteQuery_button
@@ -180,7 +181,7 @@
             this.ExecuteQuery_button.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ExecuteQuery_button.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExecuteQuery_button.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ExecuteQuery_button.Location = new System.Drawing.Point(918, 274);
+            this.ExecuteQuery_button.Location = new System.Drawing.Point(1186, 296);
             this.ExecuteQuery_button.Name = "ExecuteQuery_button";
             this.ExecuteQuery_button.Size = new System.Drawing.Size(104, 48);
             this.ExecuteQuery_button.TabIndex = 8;
@@ -193,7 +194,7 @@
             this.button_DisconnectServer.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button_DisconnectServer.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_DisconnectServer.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button_DisconnectServer.Location = new System.Drawing.Point(792, 171);
+            this.button_DisconnectServer.Location = new System.Drawing.Point(799, 186);
             this.button_DisconnectServer.Name = "button_DisconnectServer";
             this.button_DisconnectServer.Size = new System.Drawing.Size(230, 35);
             this.button_DisconnectServer.TabIndex = 11;
@@ -206,7 +207,7 @@
             this.GenerateScript_button.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.GenerateScript_button.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GenerateScript_button.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.GenerateScript_button.Location = new System.Drawing.Point(918, 478);
+            this.GenerateScript_button.Location = new System.Drawing.Point(1186, 544);
             this.GenerateScript_button.Name = "GenerateScript_button";
             this.GenerateScript_button.Size = new System.Drawing.Size(104, 48);
             this.GenerateScript_button.TabIndex = 10;
@@ -217,7 +218,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(291, 301);
+            this.label2.Location = new System.Drawing.Point(298, 318);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 13);
             this.label2.TabIndex = 16;
@@ -225,16 +226,16 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(170, 396);
+            this.dataGridView1.Location = new System.Drawing.Point(177, 378);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(730, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(987, 229);
             this.dataGridView1.TabIndex = 17;
             // 
             // label_connectionType
             // 
             this.label_connectionType.AutoSize = true;
             this.label_connectionType.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_connectionType.Location = new System.Drawing.Point(13, 27);
+            this.label_connectionType.Location = new System.Drawing.Point(20, 42);
             this.label_connectionType.Name = "label_connectionType";
             this.label_connectionType.Size = new System.Drawing.Size(110, 18);
             this.label_connectionType.TabIndex = 18;
@@ -247,7 +248,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Windows Authentication",
             "SQL Connection"});
-            this.comboBox1.Location = new System.Drawing.Point(170, 25);
+            this.comboBox1.Location = new System.Drawing.Point(177, 40);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(484, 24);
             this.comboBox1.TabIndex = 1;
@@ -261,7 +262,7 @@
             this.statusStrip1.Location = new System.Drawing.Point(0, 632);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(1038, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1359, 22);
             this.statusStrip1.TabIndex = 20;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -282,7 +283,7 @@
             this.browse_button.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.browse_button.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.browse_button.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.browse_button.Location = new System.Drawing.Point(918, 413);
+            this.browse_button.Location = new System.Drawing.Point(1186, 378);
             this.browse_button.Name = "browse_button";
             this.browse_button.Size = new System.Drawing.Size(104, 49);
             this.browse_button.TabIndex = 9;
@@ -294,7 +295,7 @@
             // 
             this.IncludeID_CheckBox.AutoSize = true;
             this.IncludeID_CheckBox.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IncludeID_CheckBox.Location = new System.Drawing.Point(16, 413);
+            this.IncludeID_CheckBox.Location = new System.Drawing.Point(1189, 482);
             this.IncludeID_CheckBox.Name = "IncludeID_CheckBox";
             this.IncludeID_CheckBox.Size = new System.Drawing.Size(151, 22);
             this.IncludeID_CheckBox.TabIndex = 21;
@@ -305,7 +306,7 @@
             // 
             this.defaultConnection_label.AutoSize = true;
             this.defaultConnection_label.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.defaultConnection_label.Location = new System.Drawing.Point(13, 60);
+            this.defaultConnection_label.Location = new System.Drawing.Point(20, 75);
             this.defaultConnection_label.Name = "defaultConnection_label";
             this.defaultConnection_label.Size = new System.Drawing.Size(125, 18);
             this.defaultConnection_label.TabIndex = 22;
@@ -313,10 +314,20 @@
             // 
             // defaultConnection_textBox
             // 
-            this.defaultConnection_textBox.Location = new System.Drawing.Point(170, 60);
+            this.defaultConnection_textBox.Location = new System.Drawing.Point(177, 75);
             this.defaultConnection_textBox.Name = "defaultConnection_textBox";
             this.defaultConnection_textBox.Size = new System.Drawing.Size(484, 20);
             this.defaultConnection_textBox.TabIndex = 2;
+            // 
+            // DataFetched_label
+            // 
+            this.DataFetched_label.AutoSize = true;
+            this.DataFetched_label.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DataFetched_label.Location = new System.Drawing.Point(20, 378);
+            this.DataFetched_label.Name = "DataFetched_label";
+            this.DataFetched_label.Size = new System.Drawing.Size(88, 18);
+            this.DataFetched_label.TabIndex = 23;
+            this.DataFetched_label.Text = "Data Fetched";
             // 
             // SQLScriptGenerator
             // 
@@ -324,7 +335,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1038, 654);
+            this.ClientSize = new System.Drawing.Size(1359, 654);
+            this.ControlBox = false;
+            this.Controls.Add(this.DataFetched_label);
             this.Controls.Add(this.defaultConnection_textBox);
             this.Controls.Add(this.defaultConnection_label);
             this.Controls.Add(this.IncludeID_CheckBox);
@@ -354,7 +367,8 @@
             this.Name = "SQLScriptGenerator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SQL Script Generator";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.Load += new System.EventHandler(this.SQLScriptGenerator_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -394,6 +408,7 @@
         private System.Windows.Forms.CheckBox IncludeID_CheckBox;
         private System.Windows.Forms.Label defaultConnection_label;
         private System.Windows.Forms.TextBox defaultConnection_textBox;
+        private System.Windows.Forms.Label DataFetched_label;
     }
 }
 

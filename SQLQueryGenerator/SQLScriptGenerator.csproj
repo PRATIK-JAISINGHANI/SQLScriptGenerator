@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseScanner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatabaseScanner.Designer.cs">
+      <DependentUpon>DatabaseScanner.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContracts\SQLScriptRequest.cs" />
     <Compile Include="DataContracts\SQLScriptResponse.cs" />
     <Compile Include="DatabaseUtility.cs">
@@ -62,6 +68,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DatabaseScanner.resx">
+      <DependentUpon>DatabaseScanner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DatabaseUtility.resx">
       <DependentUpon>DatabaseUtility.cs</DependentUpon>
     </EmbeddedResource>

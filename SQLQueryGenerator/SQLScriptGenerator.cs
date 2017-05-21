@@ -28,6 +28,8 @@ namespace SQLQueryGenerator
         public string selectedPath = string.Empty;
         public bool defaultConnection;
         public string defaultConnectionString = string.Empty;
+
+        public bool IsConnectionEstablished { get; set; }
         #endregion
 
         #region Constructor
@@ -47,7 +49,7 @@ namespace SQLQueryGenerator
             ConnectionStatus_toolStripStatusLabel1.Text = "Connection Status : Disconnected";
             FileStatus_toolStripStatusLabel2.Text = "|  File Status : Pending .....!";
             DisableControls();
-            LoadItemsForConnectionType();
+            //LoadItemsForConnectionType();
         }
 
         private void button_ConnectServer_Click(object sender, EventArgs e)
@@ -78,9 +80,11 @@ namespace SQLQueryGenerator
                     connection = new SqlConnection(connectionString);
                     connection.Open();
                     ConnectionStatus_toolStripStatusLabel1.Text = "Connection Status : Connected." + textBox_Server.Text;
+                    IsConnectionEstablished = true;
                 }
                 catch (Exception ex)
                 {
+                    IsConnectionEstablished = false;
                     MessageBox.Show("Connection was not established.", "Alert", MessageBoxButtons.OK);
                 }
             }
@@ -88,6 +92,13 @@ namespace SQLQueryGenerator
 
         private void ExecuteQuery_button_Click(object sender, EventArgs e)
         {
+            if (!IsConnectionEstablished)
+            {
+                MessageBox.Show("Please check your connection before executing a query.", "Alert!", MessageBoxButtons.OK);
+                return;
+            }
+            //
+            ClearDataSet();
             INSERT_QUERY_BAKED = string.Empty;
             if (string.IsNullOrEmpty(textBox_SQLQueryToExecute.Text))
             {
@@ -116,13 +127,17 @@ namespace SQLQueryGenerator
                             var dt = dataReader.GetSchemaTable();
 
                             foreach (DataRow column in dt.Rows)
-                                columnsList.Add(column[0].ToString());
+                                if(column["DataType"].ToString() != "System.Byte[]")
+                                    columnsList.Add(column[0].ToString());
                             //
-                            if (columnsList.Contains("VersionNo"))
-                                columnsList.Remove("VersionNo");
+                            //if (columnsList.Contains("VersionNo"))
+                            //    columnsList.Remove("VersionNo");
                             //
                             if (!IncludeID_CheckBox.Checked && columnsList.Contains("Id"))
                                 columnsList.Remove("Id");
+                            //
+                            if (!IncludeID_CheckBox.Checked && columnsList.Contains("ID"))
+                                columnsList.Remove("ID");
 
                             //
                             string query = string.Empty;
@@ -151,8 +166,8 @@ namespace SQLQueryGenerator
                                         var dt2 = new DataTable(tableName);
                                         dt2.Load(dataReaderFinal);
                                         shownTables.Tables.Add(dt2);
-                                        //shownData = dt2;
-                                        dataGridView1.DataSource = dt2;
+                                        if(sqlQueryToExecute.Count == 1)
+                                            dataGridView1.DataSource = dt2;
                                     }
                                     catch (Exception ex)
                                     {
@@ -170,10 +185,7 @@ namespace SQLQueryGenerator
 
         private void button_DisconnectServer_Click(object sender, EventArgs e)
         {
-            textBox_SQLQueryToExecute.Text = string.Empty;
-            dataGridView1.DataSource = new DataTable();
-            ConnectionStatus_toolStripStatusLabel1.Text = "Connection Status : Disconnected.";
-            FileStatus_toolStripStatusLabel2.Text = "|  File Status : Pending .....!";
+            DisconnectServer();
         }
 
         private string BuildConnectionString(bool IsDefault)
@@ -198,7 +210,6 @@ namespace SQLQueryGenerator
                 var UserName = textBox_Username.Text;
                 var Password = textBox_Password.Text;
                 //
-
                 return "Data Source=" + ServerName +
                        ";Initial Catalog=" + DatabaseName +
                        ";Integrated Security=False;User ID=" + UserName +
@@ -223,6 +234,7 @@ namespace SQLQueryGenerator
             //
             foreach (DataTable table in shownTables.Tables)
             {
+                
                 var INSERT_QUERY_RAW = INSERT_QUERY;
                 var columns = new List<string>();
                 var columnWithDataTypes = new Dictionary<string, string>();
@@ -352,7 +364,6 @@ namespace SQLQueryGenerator
             }
             MessageBox.Show(string.Concat("Your file has been saved at : ", selectedPath, "\n\n File Names : ", filesGenerated, " are File Saved."), "Files Saved.", MessageBoxButtons.OK);
             filesGenerated = string.Empty;
-            shownTables = null;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -370,13 +381,6 @@ namespace SQLQueryGenerator
             }
         }
 
-        private void LoadItemsForConnectionType()
-        {
-            //var connectionTypes = new Dictionary<Int32, string>() { { 1, "Windows Authentication" }, { 2, "SQL Connection" } };
-            var connectionTypes = new List<string> { { "Windows Authentication" }, { "SQL Connection" } };
-            comboBox1.Items.Add(connectionTypes);
-        }
-
         private void DisableControls()
         {
             textBox_Server.Enabled = false;
@@ -384,6 +388,12 @@ namespace SQLQueryGenerator
             textBox_Password.Enabled = false;
             textBox_DataBaseName.Enabled = false;
             defaultConnection_textBox.Enabled = false;
+            //
+            defaultConnection_textBox.Text = string.Empty;
+            textBox_Server.Text = string.Empty;
+            textBox_Username.Text = string.Empty;
+            textBox_Password.Text = string.Empty;
+            textBox_DataBaseName.Text = string.Empty;
         }
 
         private void EnableControls()
@@ -449,7 +459,31 @@ namespace SQLQueryGenerator
             return whereClause;
         }
 
+        private void ClearDataSet()
+        {
+            while (shownTables.Tables.Count > 0)
+            {
+                var tableName = shownTables.Tables[0].TableName;
+                shownTables.Tables.Remove(tableName);
+            }
+        }
+
+        private void DisconnectServer()
+        {
+            comboBox1.ResetText();
+            DisableControls();
+            textBox_SQLQueryToExecute.Text = string.Empty;
+            ClearDataSet();
+            ConnectionStatus_toolStripStatusLabel1.Text = "Connection Status : Disconnected.";
+            FileStatus_toolStripStatusLabel2.Text = "|  File Status : Pending .....!";
+            IncludeID_CheckBox.Checked = false;
+            IsConnectionEstablished = false;
+        }
         #endregion
 
+        private void SQLScriptGenerator_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

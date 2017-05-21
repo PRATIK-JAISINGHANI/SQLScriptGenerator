@@ -27,3 +27,25 @@ C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLQueryGenerator-2\SQLQue
 C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLQueryGenerator-2\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.SQLScriptGenerator.resources
 C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLQueryGenerator-2\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.Properties.Resources.resources
 C:\Users\PRATIK\Documents\Visual Studio 2015\Projects\SQLQueryGenerator-2\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csproj.GenerateResource.Cache
+E:\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe.config
+E:\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe
+E:\SQLScriptGenerator-master\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.pdb
+E:\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.DatabaseScanner.resources
+E:\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.DatabaseUtility.resources
+E:\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.SQLScriptGenerator.resources
+E:\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.Properties.Resources.resources
+E:\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csproj.GenerateResource.Cache
+E:\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.exe
+E:\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.pdb
+E:\SQLScriptGenerator-master\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csprojResolveAssemblyReference.cache
+E:\DatabaseUtility-Cloned\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe.config
+E:\DatabaseUtility-Cloned\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe
+E:\DatabaseUtility-Cloned\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.pdb
+E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csprojResolveAssemblyReference.cache
+E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.DatabaseScanner.resources
+E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.DatabaseUtility.resources
+E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.SQLScriptGenerator.resources
+E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.Properties.Resources.resources
+E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csproj.GenerateResource.Cache
+E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.exe
+E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.pdb
