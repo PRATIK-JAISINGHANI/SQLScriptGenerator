@@ -166,8 +166,10 @@ namespace SQLQueryGenerator
                                         var dt2 = new DataTable(tableName);
                                         dt2.Load(dataReaderFinal);
                                         shownTables.Tables.Add(dt2);
-                                        if(sqlQueryToExecute.Count == 1)
+                                        if (sqlQueryToExecute.Count == 1)
                                             dataGridView1.DataSource = dt2;
+                                        else
+                                            dataGridView1.DataSource = null;
                                     }
                                     catch (Exception ex)
                                     {

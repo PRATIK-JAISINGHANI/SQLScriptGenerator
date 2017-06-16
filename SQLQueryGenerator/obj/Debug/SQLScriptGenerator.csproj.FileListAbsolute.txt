@@ -49,3 +49,13 @@ E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.Properti
 E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csproj.GenerateResource.Cache
 E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.exe
 E:\DatabaseUtility-Cloned\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.pdb
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe.config
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.exe
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\bin\Debug\SQLQueryGenerator.pdb
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.DatabaseScanner.resources
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.DatabaseUtility.resources
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.SQLScriptGenerator.resources
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.Properties.Resources.resources
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csproj.GenerateResource.Cache
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.exe
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.pdb
