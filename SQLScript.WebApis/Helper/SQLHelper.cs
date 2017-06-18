@@ -235,6 +235,27 @@ namespace SQLScript.WebApis.Helper
         {
             return generatedScripts.Split('|').ToArray<string>();
         }
-        #endregion 
+        #endregion
+
+        #region Methods for Android App
+
+        public bool CheckConnection(string connectionString)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
+
+
+        #endregion
     }
 }

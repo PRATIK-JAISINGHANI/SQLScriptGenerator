@@ -52,6 +52,10 @@
     <Compile Include="DatabaseScanner.Designer.cs">
       <DependentUpon>DatabaseScanner.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContracts\ConnectRequest.cs" />
+    <Compile Include="DataContracts\ConnectResponse.cs" />
+    <Compile Include="DataContracts\ExecuteRequest.cs" />
+    <Compile Include="DataContracts\ExecuteResponse.cs" />
     <Compile Include="DataContracts\SQLScriptRequest.cs" />
     <Compile Include="DataContracts\SQLScriptResponse.cs" />
     <Compile Include="DatabaseUtility.cs">

@@ -22,6 +22,22 @@ namespace SQLScript.WebApis.Controllers
             return ConvertToJson<SQLScriptResponse>(response);
         }
 
+        [HttpPost, ActionName("Connect")]
+        public HttpResponseMessage Connect(ConnectRequest request)
+        {
+            var response = new ConnectResponse();
+            ConnectInternal(request, response);
+            return ConvertToJson<ConnectResponse>(response);
+        }
+
+        [HttpPost, ActionName("Execute")]
+        public HttpResponseMessage Execute(ExecuteRequest request)
+        {
+            var response = new ExecuteResponse();
+            ExecuteInternal(request, response);
+            return ConvertToJson<ExecuteResponse>(response);
+        }
+
         #endregion
 
         #region Helper Methods
@@ -44,6 +60,40 @@ namespace SQLScript.WebApis.Controllers
             {
                 response.IsActionSuccessful = true;
                 response.Script = Script;
+            }
+            else
+                response.IsActionSuccessful = false;
+        }
+
+        private void ConnectInternal(ConnectRequest request, ConnectResponse response)
+        {
+            var sqlHelper = new SQLHelper();
+            var connectionString = sqlHelper.BuildConnectionString(request.ServerName, 
+                                                                   request.DatabaseName, 
+                                                                   request.Username, 
+                                                                   request.Password);
+            //
+            if (string.IsNullOrEmpty(connectionString))
+                throw new Exception("Connection String was not found.");
+            //
+            if(sqlHelper.CheckConnection(connectionString))
+            {
+                response.IsConnected = true;
+                response.ConnectionString = connectionString;
+            }
+            else
+                response.IsConnected = false;
+        }
+
+        private void ExecuteInternal(ExecuteRequest request, ExecuteResponse response)
+        {
+            var sqlHelper = new SQLHelper();
+            sqlHelper.ExecuteQuery(request.ConnectionString, request.Query, request.IncludeIdentity);
+            var Script = sqlHelper.GenerateScripts();
+            if (Script != null)
+            {
+                response.IsActionSuccessful = true;
+                response.Scripts = Script;
             }
             else
                 response.IsActionSuccessful = false;
