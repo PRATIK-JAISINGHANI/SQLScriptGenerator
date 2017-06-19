@@ -550,6 +550,7 @@ C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Syste
 C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\obj\Debug\SQLScript.WebApis.csprojResolveAssemblyReference.cache
 C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\obj\Debug\SQLScript.WebApis.dll
 C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\obj\Debug\SQLScript.WebApis.pdb
+C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\obj\Debug\SQLScript.WebApis.csprojResolveAssemblyReference.cache
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\ApplicationInsights.config
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\roslyn\csc.exe
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -579,6 +580,7 @@ C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Micros
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.Owin.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.Owin.Host.SystemWeb.dll
@@ -593,6 +595,8 @@ C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Micros
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Newtonsoft.Json.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Owin.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\SQLQueryGenerator.exe
+C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Swashbuckle.Core.dll
+C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.Net.Http.Formatting.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.Web.Helpers.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.Web.Http.dll
@@ -604,6 +608,7 @@ C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.Web.WebPages.Deployment.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.Web.WebPages.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.Web.WebPages.Razor.dll
+C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\WebActivatorEx.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\WebGrease.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\SQLQueryGenerator.pdb
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.AI.DependencyCollector.xml
@@ -612,6 +617,7 @@ C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Micros
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.ApplicationInsights.xml
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.IdentityModel.Tokens.Jwt.xml
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Newtonsoft.Json.xml
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.Net.Http.Formatting.xml
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.Web.Helpers.xml
@@ -639,11 +645,5 @@ C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Micros
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.Web.Http.Owin.xml
-C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\obj\Debug\SQLScript.WebApis.csprojResolveAssemblyReference.cache
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\obj\Debug\SQLScript.WebApis.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\obj\Debug\SQLScript.WebApis.pdb
-C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
-C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Swashbuckle.Core.dll
-C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\WebActivatorEx.dll
-C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.IdentityModel.Tokens.Jwt.xml

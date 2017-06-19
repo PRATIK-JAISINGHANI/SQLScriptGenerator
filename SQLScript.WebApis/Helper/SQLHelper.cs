@@ -58,13 +58,14 @@ namespace SQLScript.WebApis.Helper
                         var dt = dataReader.GetSchemaTable();
 
                         foreach (DataRow column in dt.Rows)
-                            columnsList.Add(column[0].ToString());
-                        //
-                        if (columnsList.Contains("VersionNo"))
-                            columnsList.Remove("VersionNo");
+                            if (column["DataType"].ToString() != "System.Byte[]")
+                                columnsList.Add(column[0].ToString());
                         //
                         if (!IncludeIdentity && columnsList.Contains("Id"))
                             columnsList.Remove("Id");
+
+                        if (!IncludeIdentity && columnsList.Contains("ID"))
+                            columnsList.Remove("ID");
 
                         //
                         string query = string.Empty;
@@ -131,6 +132,7 @@ namespace SQLScript.WebApis.Helper
             foreach (DataRow dr in shownData.Rows)
             {
                 columnValues = string.Empty;
+                var columnValuesList = new List<string>();
                 foreach (var item in columns)
                 {
                     if (string.IsNullOrEmpty(columnValues))
@@ -159,11 +161,34 @@ namespace SQLScript.WebApis.Helper
                     }
                 }
 
-                if (columnValues.Contains("True"))
-                    columnValues = columnValues.Replace("True", "1");
+                if (columnValues.Contains("'True'"))
+                    columnValues = columnValues.Replace("'True'", "1");
 
-                if (columnValues.Contains("False"))
-                    columnValues = columnValues.Replace("False", "0");
+                if (columnValues.Contains("'False'"))
+                    columnValues = columnValues.Replace("'False'", "0");
+
+                var t = new List<int>();
+                var f = new List<int>();
+                var n = new List<int>();
+
+                for (int i = 0; i < columnValuesList.Count; i++)
+                {
+                    if (columnValuesList[i].ToString() == "'True'")
+                        t.Add(i);
+                    if (columnValuesList[i].ToString() == "'False'")
+                        f.Add(i);
+                    if (columnValuesList[i].ToString() == "''")
+                        n.Add(i);
+                }
+
+                foreach (var item in t)
+                    columnValuesList[item] = "1";
+
+                foreach (var item in f)
+                    columnValuesList[item] = "0";
+
+                foreach (var item in n)
+                    columnValuesList[item] = "NULL";
 
                 if (columnValues.Contains("''"))
                     columnValues = columnValues.Replace("''", "NULL");
@@ -177,7 +202,7 @@ namespace SQLScript.WebApis.Helper
                     INSERT_QUERY_RAW = INSERT_QUERY_RAW  + INSERT_QUERY_BAKED.Replace("VALUES", columnValues);
 
                 if (INSERT_QUERY_RAW.Contains("WHERE_CLAUSE"))
-                    INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("WHERE_CLAUSE", GenerateWhereClause(columnWithDataTypes, columnNames, columnValues));
+                    INSERT_QUERY_RAW = INSERT_QUERY_RAW.Replace("WHERE_CLAUSE", GenerateWhereClause(columnWithDataTypes, columns, columnValuesList));
             }
             return ConvertToArray(INSERT_QUERY_RAW);
         }
@@ -196,10 +221,8 @@ namespace SQLScript.WebApis.Helper
             tableName = sqlQuery;
         }
 
-        private string GenerateWhereClause(Dictionary<string, string> columnsWithDataTypes, string columnNames, string columnValues)
+        private string GenerateWhereClause(Dictionary<string, string> columnsWithDataTypes, List<string> columnNamesList, List<string> columnValuesList)
         {
-            var columnNamesList = columnNames.Split(',').ToList<string>();
-            var columnValuesList = columnValues.Split(',').ToList<string>();
             var whereClause = string.Empty;
             if (columnNamesList.Count == columnValuesList.Count)
             {
