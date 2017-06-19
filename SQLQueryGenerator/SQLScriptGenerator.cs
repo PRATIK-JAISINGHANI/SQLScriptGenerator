@@ -322,21 +322,26 @@ namespace SQLQueryGenerator
 
                     var t = new List<int>();
                     var f = new List<int>();
+                    var n = new List<int>();
 
-                    foreach (var item in columnValuesList)
+                    for (int i = 0; i < columnValuesList.Count; i++)
                     {
-                        if (item.ToString() == "'True'")
-                            t.Add(columnValuesList.IndexOf(item.ToString()));
-                        if (item.ToString() == "'False'")
-                            f.Add(columnValuesList.IndexOf(item.ToString()));
+                        if (columnValuesList[i].ToString() == "'True'")
+                            t.Add(i);
+                        if (columnValuesList[i].ToString() == "'False'")
+                            f.Add(i);
+                        if (columnValuesList[i].ToString() == "''")
+                            n.Add(i);
                     }
 
                     foreach (var item in t)
                         columnValuesList[item] = "1";
 
-
                     foreach (var item in f)
                         columnValuesList[item] = "0";
+
+                    foreach (var item in n)
+                        columnValuesList[item] = "NULL";
 
                     if (columnValues.Contains("''"))
                         columnValues = columnValues.Replace("''", "NULL");
