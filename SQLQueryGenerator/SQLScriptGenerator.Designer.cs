@@ -207,7 +207,7 @@
             this.GenerateScript_button.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.GenerateScript_button.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GenerateScript_button.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.GenerateScript_button.Location = new System.Drawing.Point(1186, 544);
+            this.GenerateScript_button.Location = new System.Drawing.Point(1186, 504);
             this.GenerateScript_button.Name = "GenerateScript_button";
             this.GenerateScript_button.Size = new System.Drawing.Size(104, 48);
             this.GenerateScript_button.TabIndex = 10;
@@ -262,7 +262,7 @@
             this.statusStrip1.Location = new System.Drawing.Point(0, 632);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(1359, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1358, 22);
             this.statusStrip1.TabIndex = 20;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -283,7 +283,7 @@
             this.browse_button.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.browse_button.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.browse_button.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.browse_button.Location = new System.Drawing.Point(1186, 378);
+            this.browse_button.Location = new System.Drawing.Point(1186, 422);
             this.browse_button.Name = "browse_button";
             this.browse_button.Size = new System.Drawing.Size(104, 49);
             this.browse_button.TabIndex = 9;
@@ -295,7 +295,7 @@
             // 
             this.IncludeID_CheckBox.AutoSize = true;
             this.IncludeID_CheckBox.Font = new System.Drawing.Font("Trebuchet MS", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.IncludeID_CheckBox.Location = new System.Drawing.Point(1189, 482);
+            this.IncludeID_CheckBox.Location = new System.Drawing.Point(1186, 257);
             this.IncludeID_CheckBox.Name = "IncludeID_CheckBox";
             this.IncludeID_CheckBox.Size = new System.Drawing.Size(151, 22);
             this.IncludeID_CheckBox.TabIndex = 21;
@@ -335,7 +335,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1359, 654);
+            this.ClientSize = new System.Drawing.Size(1358, 654);
             this.ControlBox = false;
             this.Controls.Add(this.DataFetched_label);
             this.Controls.Add(this.defaultConnection_textBox);

@@ -138,7 +138,6 @@ namespace SQLQueryGenerator
                             //
                             if (!IncludeID_CheckBox.Checked && columnsList.Contains("ID"))
                                 columnsList.Remove("ID");
-
                             //
                             string query = string.Empty;
                             string innerQuery = sqlItem;

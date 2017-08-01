@@ -22,21 +22,21 @@ namespace SQLScript.WebApis.Controllers
             return ConvertToJson<SQLScriptResponse>(response);
         }
 
-        [HttpPost, ActionName("Connect")]
-        public HttpResponseMessage Connect(ConnectRequest request)
-        {
-            var response = new ConnectResponse();
-            ConnectInternal(request, response);
-            return ConvertToJson<ConnectResponse>(response);
-        }
+        //[HttpPost, ActionName("Connect")]
+        //public HttpResponseMessage Connect(ConnectRequest request)
+        //{
+        //    var response = new ConnectResponse();
+        //    ConnectInternal(request, response);
+        //    return ConvertToJson<ConnectResponse>(response);
+        //}
 
-        [HttpPost, ActionName("Execute")]
-        public HttpResponseMessage Execute(ExecuteRequest request)
-        {
-            var response = new ExecuteResponse();
-            ExecuteInternal(request, response);
-            return ConvertToJson<ExecuteResponse>(response);
-        }
+        //[HttpPost, ActionName("Execute")]
+        //public HttpResponseMessage Execute(ExecuteRequest request)
+        //{
+        //    var response = new ExecuteResponse();
+        //    ExecuteInternal(request, response);
+        //    return ConvertToJson<ExecuteResponse>(response);
+        //}
 
         #endregion
 
