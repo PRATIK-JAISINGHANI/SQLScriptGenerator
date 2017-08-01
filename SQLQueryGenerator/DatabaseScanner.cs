@@ -247,25 +247,7 @@ namespace SQLQueryGenerator
             //
             CheckTables(firstDBTable, secondDBTable);
             //
-            var commonTables = firstDBTable.DefaultView.ToTable(true, "TABLE_NAME").AsEnumerable().Select(p => p.Field<string>("TABLE_NAME")).Intersect(secondDBTable.DefaultView.ToTable(true, "TABLE_NAME").AsEnumerable().Select(p => p.Field<string>("TABLE_NAME"))).ToList<string>();
-            if (commonTables.Count == 0)
-            {
-                MessageBox.Show("Not a single table match was found, Perhaps similar DBs are not being compared. Please select similar DBs and try it again.", "CAUTION", MessageBoxButtons.OK);
-                return;
-            }
-            //
-            foreach (var item in commonTables)
-            {
-                var _queryToGetColumns = string.Format("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = {0}", item);
-                string[] columnList = { "TABLE_CATALOG", "TABLE_NAME", "COLUMN_NAME", "COLUMN_DEFAULT", "IS_NULLABLE", "DATA_TYPE", "CHARACTER_MAXIMUM_LENGTH" };
-                //
-                DataTable firstDBColumns = GetData(FirstConnectionString, _queryToGetColumns);
-                firstDBColumns.TableName = item;
-                DataTable secondDBColumns = GetData(SecondConnectionString, _queryToGetColumns);
-                secondDBColumns.TableName = item;
-                //
-                CompareColumns(firstDBColumns.DefaultView.ToTable(true, columnList), secondDBColumns.DefaultView.ToTable(true, columnList));
-            }
+            
         }
 
         private void EnableFirstDBConnectionControls(bool IsDefaultConnection)
@@ -328,7 +310,34 @@ namespace SQLQueryGenerator
             }
         }
 
-        private void CompareColumns(DataTable firstTable, DataTable secondTable)
+        private void CheckColumns(DataTable firstDBTable, DataTable secondDBTable)
+        {
+            var commonTables = firstDBTable.DefaultView.ToTable(true, "TABLE_NAME").AsEnumerable().Select(p => p.Field<string>("TABLE_NAME")).Intersect(secondDBTable.DefaultView.ToTable(true, "TABLE_NAME").AsEnumerable().Select(p => p.Field<string>("TABLE_NAME"))).ToList<string>();
+            if (commonTables.Count == 0)
+            {
+                MessageBox.Show("Not a single table match was found, Perhaps similar DBs are not being compared. Please select similar DBs and try it again.", "CAUTION", MessageBoxButtons.OK);
+                return;
+            }
+            //
+            var finalLog = string.Empty;
+            //
+            foreach (var item in commonTables)
+            {
+                var _queryToGetColumns = string.Format("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = {0}", item);
+                string[] columnList = { "TABLE_CATALOG", "TABLE_NAME", "COLUMN_NAME", "COLUMN_DEFAULT", "IS_NULLABLE", "DATA_TYPE", "CHARACTER_MAXIMUM_LENGTH" };
+                //
+                DataTable firstDBColumns = GetData(FirstConnectionString, _queryToGetColumns);
+                firstDBColumns.TableName = item;
+                DataTable secondDBColumns = GetData(SecondConnectionString, _queryToGetColumns);
+                secondDBColumns.TableName = item;
+                //
+                finalLog = finalLog + "\n \n "+item+" \n \n" + CompareColumns(firstDBColumns.DefaultView.ToTable(true, columnList), secondDBColumns.DefaultView.ToTable(true, columnList));
+            }
+            MessageBox.Show(finalLog, "FINAL LOG", MessageBoxButtons.OK);
+            return;
+        }
+
+        private string CompareColumns(DataTable firstTable, DataTable secondTable)
         {
             var finalErrorMessage = string.Empty;
 
@@ -347,8 +356,7 @@ namespace SQLQueryGenerator
 
             if (commonColumns.Count == 0)
             {
-                MessageBox.Show("Not a single column found matching, Perhaps only Table Name is same. Please try Again.");
-                return;
+                finalErrorMessage = finalErrorMessage + string.Format("Table : {0} - Not a single column found matching, Perhaps only Table Name is same. Please try Again.", firstTable.AsEnumerable().Select(p => p.Field<String>("TABLE_NAME").First()));
             }
             //
             foreach(var columnName in commonColumns)
@@ -362,6 +370,7 @@ namespace SQLQueryGenerator
                         finalErrorMessage = finalErrorMessage + string.Format("\n \n In Table : {0}, {1} Didn't Match For Column : {2} ", firstTable.Rows[0]["TABLE_NAME"], internalColumn, columnName);
                 }
             }
+            return finalErrorMessage;
         }
 
         private DataTable GetData(string connectionString, string queryToExecute)
