@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -192,62 +193,32 @@ namespace SQLQueryGenerator
 
         private void CompareDatabaseInternal()
         {
-            bool isTableCountEqual = false;
-            bool similarTableExists = false;
-            //
-            DataTable firstDBTable = new DataTable("firstDBTable");
-            //
+            var finalLog = string.Empty;
             var _informationSchemaQuery = "SELECT * FROM INFORMATION_SCHEMA.TABLES";
             //
+            DataTable firstDBTable = new DataTable("firstDBTable");
             firstDBTable = GetData(FirstConnectionString, _informationSchemaQuery);
-            //using (SqlConnection connectionFirst = new SqlConnection(FirstConnectionString))
-            //{
-            //    using (SqlCommand command = new SqlCommand(_informationSchemaQuery, connectionFirst))
-            //    {
-            //        command.CommandType = CommandType.Text;
-            //        try
-            //        {
-            //            connectionFirst.Open();
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            MessageBox.Show(ex.ToString(), "ERROR", MessageBoxButtons.OK);
-            //            return;
-            //        }
-            //        using (SqlDataReader informationSchemaFirst = command.ExecuteReader())
-            //        {
-            //            firstDBTable.Load(informationSchemaFirst);
-            //        }
-            //    }
-            //}
             //
             DataTable secondDBTable = new DataTable("secondDBTable");
             secondDBTable = GetData(SecondConnectionString, _informationSchemaQuery);
             //
-            //using (SqlConnection connectionSecond = new SqlConnection(SecondConnectionString))
-            //{
-            //    using (SqlCommand command = new SqlCommand(_informationSchemaQuery, connectionSecond))
-            //    {
-            //        command.CommandType = CommandType.Text;
-            //        try
-            //        {
-            //            connectionSecond.Open();
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            MessageBox.Show(ex.ToString(), "ERROR", MessageBoxButtons.OK);
-            //            return;
-            //        }
-            //        using (SqlDataReader informationSchemaSecond = command.ExecuteReader())
-            //        {
-            //            secondDBTable.Load(informationSchemaSecond);
-            //        }
-            //    }
-            //}
-            //
-            CheckTables(firstDBTable, secondDBTable);
-            //
-            
+            finalLog = CheckTables(firstDBTable, secondDBTable);
+
+            finalLog = finalLog + CheckColumns(firstDBTable, secondDBTable);
+
+            if(!string.IsNullOrEmpty(finalLog))
+            {
+                using (FileStream fs = File.Create(string.Concat(filePathLabel.Text, "\\", "DB Comparison Log File -", DateTime.Now.ToString("dd-MM-yyyy"), ".txt")))
+                {
+                    byte[] text = new UTF8Encoding(true).GetBytes(finalLog);
+                    fs.Write(text, 0, text.Length);
+                }
+                MessageBox.Show("Your DB Comparison Log File has been saved on path : "+filePathLabel.Text, "File Saved", MessageBoxButtons.OK);
+            }
+            else
+            {
+                MessageBox.Show("Both the DBs Match Properly", "COMPARISON RESULT", MessageBoxButtons.OK);
+            }
         }
 
         private void EnableFirstDBConnectionControls(bool IsDefaultConnection)
@@ -291,7 +262,7 @@ namespace SQLQueryGenerator
             }
         }
 
-        private void CheckTables(DataTable firstDBTable, DataTable secondDBTable)
+        private string CheckTables(DataTable firstDBTable, DataTable secondDBTable)
         {
             var remainingTables = new List<string>();
             var messageToShow = string.Empty;
@@ -302,28 +273,30 @@ namespace SQLQueryGenerator
             //
             remainingTables = secondDBTable.DefaultView.ToTable(true, "TABLE_NAME").AsEnumerable().Select(p => p.Field<string>("TABLE_NAME")).Except(firstDBTable.DefaultView.ToTable(true, "TABLE_NAME").AsEnumerable().Select(p => p.Field<string>("TABLE_NAME"))).ToList<string>();
             if (remainingTables.Count > 0 && !string.IsNullOrEmpty(messageToShow))
-                messageToShow = string.Format("{0} \n Tables Not Found in First DB : {1}", messageToShow, string.Join(", \n", remainingTables));
-            if (!string.IsNullOrEmpty(messageToShow))
-            {
-                MessageBox.Show(messageToShow, "ALERT", MessageBoxButtons.OK);
-                return;
-            }
+                messageToShow = string.Format("{0} \n \n Tables Not Found in First DB : {1}", messageToShow, string.Join(", \n", remainingTables));
+
+            return messageToShow;
+            //if (!string.IsNullOrEmpty(messageToShow))
+            //{
+            //    MessageBox.Show(messageToShow, "ALERT", MessageBoxButtons.OK);
+            //    return;
+            //}
         }
 
-        private void CheckColumns(DataTable firstDBTable, DataTable secondDBTable)
+        private string CheckColumns(DataTable firstDBTable, DataTable secondDBTable)
         {
+            var resultMessage = string.Empty;
             var commonTables = firstDBTable.DefaultView.ToTable(true, "TABLE_NAME").AsEnumerable().Select(p => p.Field<string>("TABLE_NAME")).Intersect(secondDBTable.DefaultView.ToTable(true, "TABLE_NAME").AsEnumerable().Select(p => p.Field<string>("TABLE_NAME"))).ToList<string>();
             if (commonTables.Count == 0)
             {
-                MessageBox.Show("Not a single table match was found, Perhaps similar DBs are not being compared. Please select similar DBs and try it again.", "CAUTION", MessageBoxButtons.OK);
-                return;
+                resultMessage = "Not a single table match was found, Perhaps similar DBs are not being compared. Please select similar DBs and try it again.";
+                //MessageBox.Show("Not a single table match was found, Perhaps similar DBs are not being compared. Please select similar DBs and try it again.", "CAUTION", MessageBoxButtons.OK);
+                //return;
             }
-            //
-            var finalLog = string.Empty;
             //
             foreach (var item in commonTables)
             {
-                var _queryToGetColumns = string.Format("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = {0}", item);
+                var _queryToGetColumns = string.Format("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{0}'", item);
                 string[] columnList = { "TABLE_CATALOG", "TABLE_NAME", "COLUMN_NAME", "COLUMN_DEFAULT", "IS_NULLABLE", "DATA_TYPE", "CHARACTER_MAXIMUM_LENGTH" };
                 //
                 DataTable firstDBColumns = GetData(FirstConnectionString, _queryToGetColumns);
@@ -331,10 +304,10 @@ namespace SQLQueryGenerator
                 DataTable secondDBColumns = GetData(SecondConnectionString, _queryToGetColumns);
                 secondDBColumns.TableName = item;
                 //
-                finalLog = finalLog + "\n \n "+item+" \n \n" + CompareColumns(firstDBColumns.DefaultView.ToTable(true, columnList), secondDBColumns.DefaultView.ToTable(true, columnList));
+                resultMessage = resultMessage + "\n \n "+item+" \n \n" + CompareColumns(firstDBColumns.DefaultView.ToTable(true, columnList), secondDBColumns.DefaultView.ToTable(true, columnList));
             }
-            MessageBox.Show(finalLog, "FINAL LOG", MessageBoxButtons.OK);
-            return;
+            //MessageBox.Show(finalLog, "FINAL LOG", MessageBoxButtons.OK);
+            return resultMessage;
         }
 
         private string CompareColumns(DataTable firstTable, DataTable secondTable)
@@ -361,10 +334,10 @@ namespace SQLQueryGenerator
             //
             foreach(var columnName in commonColumns)
             {
-                var dataRow1 = firstTable.Rows.Find(columnName);
-                var dataRow2 = secondTable.Rows.Find(columnName);
-                
-                foreach(var internalColumn in dataRow1.Table.Columns)
+                var dataRow1 = firstTable.AsEnumerable().Where(p => p.Field<string>("COLUMN_NAME") == columnName).First();
+                var dataRow2 = secondTable.AsEnumerable().Where(p => p.Field<string>("COLUMN_NAME") == columnName).First();
+
+                foreach (var internalColumn in dataRow1.Table.Columns)
                 {
                     if (dataRow1[internalColumn.ToString()] != dataRow2[internalColumn.ToString()])
                         finalErrorMessage = finalErrorMessage + string.Format("\n \n In Table : {0}, {1} Didn't Match For Column : {2} ", firstTable.Rows[0]["TABLE_NAME"], internalColumn, columnName);
@@ -405,6 +378,25 @@ namespace SQLQueryGenerator
             return result;
         }
 
+        private bool ValidateBeforeCompare()
+        {
+            if (string.IsNullOrEmpty(FirstConnectionString))
+            {
+                MessageBox.Show("Please Check Connection For First DB", "ERROR", MessageBoxButtons.OK);
+                return false;
+            }
+            if (string.IsNullOrEmpty(SecondConnectionString))
+            {
+                MessageBox.Show("Please Check Connection For First DB", "ERROR", MessageBoxButtons.OK);
+                return false;
+            }
+            if (string.IsNullOrEmpty(filePathLabel.Text))
+            {
+                MessageBox.Show("Please select path to save a log file", "Select Path", MessageBoxButtons.OK);
+                return false;
+            }
+            return true;
+        }
         #endregion
 
         #region Event Methods
@@ -419,6 +411,9 @@ namespace SQLQueryGenerator
 
         private void Compare_button_Click(object sender, EventArgs e)
         {
+            if (!ValidateBeforeCompare())
+                return;
+            //
             if (CompareDatabase_radiobutton.Checked)
                 CompareDatabases();
 
@@ -490,7 +485,15 @@ namespace SQLQueryGenerator
                 EnableSecondDBConnectionControls(false);
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.ShowDialog();
+            filePathLabel.Text =  fbd.SelectedPath;
+        }
+
         #endregion
+      
     }
 }
 

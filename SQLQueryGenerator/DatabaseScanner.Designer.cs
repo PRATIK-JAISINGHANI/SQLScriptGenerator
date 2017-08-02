@@ -62,6 +62,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.FirstDBConnectionStatus = new System.Windows.Forms.Label();
             this.SecondDBConnectionStatus = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.filePathLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ConnectionType_label1
@@ -305,7 +307,7 @@
             // CompareDatabase_radiobutton
             // 
             this.CompareDatabase_radiobutton.AutoSize = true;
-            this.CompareDatabase_radiobutton.Location = new System.Drawing.Point(263, 384);
+            this.CompareDatabase_radiobutton.Location = new System.Drawing.Point(263, 448);
             this.CompareDatabase_radiobutton.Margin = new System.Windows.Forms.Padding(4);
             this.CompareDatabase_radiobutton.Name = "CompareDatabase_radiobutton";
             this.CompareDatabase_radiobutton.Size = new System.Drawing.Size(177, 22);
@@ -317,7 +319,7 @@
             // CompareTable_RadioButton
             // 
             this.CompareTable_RadioButton.AutoSize = true;
-            this.CompareTable_RadioButton.Location = new System.Drawing.Point(263, 449);
+            this.CompareTable_RadioButton.Location = new System.Drawing.Point(263, 478);
             this.CompareTable_RadioButton.Margin = new System.Windows.Forms.Padding(4);
             this.CompareTable_RadioButton.Name = "CompareTable_RadioButton";
             this.CompareTable_RadioButton.Size = new System.Drawing.Size(117, 22);
@@ -329,7 +331,7 @@
             // 
             // tablename_textbox
             // 
-            this.tablename_textbox.Location = new System.Drawing.Point(450, 449);
+            this.tablename_textbox.Location = new System.Drawing.Point(450, 478);
             this.tablename_textbox.Margin = new System.Windows.Forms.Padding(4);
             this.tablename_textbox.Name = "tablename_textbox";
             this.tablename_textbox.Size = new System.Drawing.Size(188, 23);
@@ -415,12 +417,32 @@
             this.SecondDBConnectionStatus.Size = new System.Drawing.Size(0, 18);
             this.SecondDBConnectionStatus.TabIndex = 34;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(263, 383);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 35;
+            this.button5.Text = "Browse";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // filePathLabel
+            // 
+            this.filePathLabel.AutoSize = true;
+            this.filePathLabel.Location = new System.Drawing.Point(260, 336);
+            this.filePathLabel.Name = "filePathLabel";
+            this.filePathLabel.Size = new System.Drawing.Size(0, 18);
+            this.filePathLabel.TabIndex = 36;
+            // 
             // DatabaseScanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(1362, 658);
+            this.Controls.Add(this.filePathLabel);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.SecondDBConnectionStatus);
             this.Controls.Add(this.FirstDBConnectionStatus);
             this.Controls.Add(this.button4);
@@ -500,5 +522,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label FirstDBConnectionStatus;
         private System.Windows.Forms.Label SecondDBConnectionStatus;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label filePathLabel;
     }
 }

@@ -69,3 +69,4 @@ C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csproj.GenerateResource.Cache
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.exe
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\SQLQueryGenerator.pdb
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLQueryGenerator\obj\Debug\SQLScriptGenerator.csprojResolveAssemblyReference.cache

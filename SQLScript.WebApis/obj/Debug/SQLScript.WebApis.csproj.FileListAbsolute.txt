@@ -647,3 +647,8 @@ C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Micros
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.Web.Http.Owin.xml
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\obj\Debug\SQLScript.WebApis.dll
 C:\Users\PRATIK\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\obj\Debug\SQLScript.WebApis.pdb
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\Swashbuckle.Core.dll
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\WebActivatorEx.dll
+C:\Users\pratikj\Documents\GitHub\SQLScriptGenerator\SQLScript.WebApis\bin\System.IdentityModel.Tokens.Jwt.xml
