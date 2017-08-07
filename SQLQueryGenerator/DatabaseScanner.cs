@@ -206,6 +206,10 @@ namespace SQLQueryGenerator
 
             finalLog = finalLog + CheckColumns(firstDBTable, secondDBTable);
 
+            finalLog = finalLog + CheckDataCount(firstDBTable, secondDBTable);
+
+            finalLog = finalLog + CheckDataCount(firstDBTable, secondDBTable);
+
             if(!string.IsNullOrEmpty(finalLog))
             {
                 using (FileStream fs = File.Create(string.Concat(filePathLabel.Text, "\\", "DB Comparison Log File -", DateTime.Now.ToString("dd-MM-yyyy"), ".txt")))
@@ -339,11 +343,33 @@ namespace SQLQueryGenerator
 
                 foreach (var internalColumn in dataRow1.Table.Columns)
                 {
-                    if (dataRow1[internalColumn.ToString()] != dataRow2[internalColumn.ToString()])
+                    if (!string.Equals(dataRow1[internalColumn.ToString()],dataRow2[internalColumn.ToString()]))
                         finalErrorMessage = finalErrorMessage + string.Format("\n \n In Table : {0}, {1} Didn't Match For Column : {2} ", firstTable.Rows[0]["TABLE_NAME"], internalColumn, columnName);
                 }
             }
             return finalErrorMessage;
+        }
+
+        private string CheckDataCount(DataTable firstTable, DataTable secondTable)
+        {
+            var resultLog = string.Empty;
+            //
+            var commonTables = firstTable.DefaultView.ToTable(true, "TABLE_NAME").AsEnumerable().Where(p=> p.Field<string>("TABLE_TYPE") == "BASE TABLE").Select(p => p.Field<string>("TABLE_NAME")).Intersect(secondTable.DefaultView.ToTable(true, "TABLE_NAME").AsEnumerable().Select(p => p.Field<string>("TABLE_NAME"))).ToList<string>();
+            if (commonTables.Count == 0)
+                return "Didn't Find Single Matching Table";
+            //
+            foreach(var tableName in commonTables)
+            {
+                var _query = string.Format("SELECT COUNT(1) FROM {0}", tableName);
+                var firstData = GetData(FirstConnectionString, _query);
+                var secondData = GetData(SecondConnectionString, _query);
+                //
+                if (firstData.Rows[0] == secondData.Rows[0])
+                    resultLog = resultLog + "\n" + tableName + " \n " + "Rows Count Matched.";
+                else
+                    resultLog = resultLog + "\n" + tableName + " \n " + string.Format(" First Table Count : {0} \n", firstData.Rows[0]) + string.Format(" Second Table Count : {0} \n", secondData.Rows[0]);
+            }
+            return resultLog;
         }
 
         private DataTable GetData(string connectionString, string queryToExecute)
@@ -397,6 +423,7 @@ namespace SQLQueryGenerator
             }
             return true;
         }
+
         #endregion
 
         #region Event Methods
@@ -493,7 +520,6 @@ namespace SQLQueryGenerator
         }
 
         #endregion
-      
     }
 }
 
